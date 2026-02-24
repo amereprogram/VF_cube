@@ -1,4 +1,5 @@
-import { memo } from 'react'
+import { memo, useCallback } from 'react'
+import { useHaptics } from '../hooks/useHaptics'
 
 interface UIOverlayProps {
   muted: boolean
@@ -25,6 +26,13 @@ function SpeakerIcon({ muted }: { muted: boolean }) {
 }
 
 function UIOverlay({ muted, onToggleMute }: UIOverlayProps) {
+  const { supported: hapticsSupported, vibrateGentle } = useHaptics()
+
+  const onToggle = useCallback(() => {
+    vibrateGentle()
+    onToggleMute()
+  }, [onToggleMute, vibrateGentle])
+
   return (
     <div
       style={{
@@ -38,7 +46,7 @@ function UIOverlay({ muted, onToggleMute }: UIOverlayProps) {
       }}
     >
       <button
-        onClick={onToggleMute}
+        onClick={onToggle}
         style={{
           position: 'absolute',
           top: '1.25rem',
@@ -74,9 +82,15 @@ function UIOverlay({ muted, onToggleMute }: UIOverlayProps) {
           letterSpacing: '0.25em',
           textTransform: 'uppercase',
           whiteSpace: 'nowrap',
+          textAlign: 'center',
         }}
       >
-        Fidget Cube
+        <div>Fidget Cube</div>
+        {!hapticsSupported && (
+          <div style={{ marginTop: 8, letterSpacing: '0.12em', fontSize: '0.6rem', opacity: 0.7 }}>
+            Haptics not supported on this device/browser
+          </div>
+        )}
       </div>
     </div>
   )

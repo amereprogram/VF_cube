@@ -10,12 +10,24 @@ import { CUBE_HALF } from '../utils/constants'
 
 interface FidgetCubeProps {
   onInteraction?: () => void
+  onShellPointerDown?: (e: any) => void
+  onShellPointerUp?: (e: any) => void
+  onShellPointerLeave?: (e: any) => void
 }
 
-function FidgetCube({ onInteraction }: FidgetCubeProps) {
+function FidgetCube({
+  onInteraction,
+  onShellPointerDown,
+  onShellPointerUp,
+  onShellPointerLeave,
+}: FidgetCubeProps) {
   return (
     <group>
-      <CubeShell />
+      <CubeShell
+        onPointerDown={onShellPointerDown}
+        onPointerUp={onShellPointerUp}
+        onPointerLeave={onShellPointerLeave}
+      />
 
       {/* Front face (+Z): Clicky Buttons */}
       <group position={[0, 0, CUBE_HALF]}>

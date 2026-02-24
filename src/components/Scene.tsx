@@ -1,24 +1,9 @@
-import { useRef, useCallback, Suspense } from 'react'
+import { Suspense } from 'react'
 import { OrbitControls, Environment } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
-import FidgetCube from '../cube/FidgetCube'
+import CubeRig from '../cube/CubeRig'
 
 export default function Scene() {
-  const controlsRef = useRef<any>(null)
-  const timeoutRef = useRef<number>(0)
-
-  const handleInteraction = useCallback(() => {
-    if (controlsRef.current) {
-      controlsRef.current.autoRotate = false
-    }
-    clearTimeout(timeoutRef.current)
-    timeoutRef.current = window.setTimeout(() => {
-      if (controlsRef.current) {
-        controlsRef.current.autoRotate = true
-      }
-    }, 3000)
-  }, [])
-
   return (
     <>
       <ambientLight intensity={0.35} color="#b0c4de" />
@@ -43,18 +28,16 @@ export default function Scene() {
       </Suspense>
 
       <OrbitControls
-        ref={controlsRef}
         enablePan={false}
         enableZoom={true}
+        enableRotate={false}
         minDistance={3}
         maxDistance={8}
-        autoRotate
-        autoRotateSpeed={0.5}
         dampingFactor={0.05}
         enableDamping
       />
 
-      <FidgetCube onInteraction={handleInteraction} />
+      <CubeRig />
 
       <EffectComposer>
         <Bloom
