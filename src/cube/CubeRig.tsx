@@ -140,7 +140,7 @@ function CubeRig(_props: CubeRigProps) {
     return out
   }, [camera])
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
     const nowMs = performance.now()
     const idleForMs = nowMs - lastInteractionAt.current
 
