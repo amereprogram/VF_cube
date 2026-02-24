@@ -1,0 +1,18 @@
+{
+  "name": "Fidget Cube — Interactive 3D Experience",
+  "short_name": "Fidget Cube",
+  "description": "A premium interactive 3D fidget cube experience",
+  "theme_color": "#0a0a1a",
+  "background_color": "#0a0a1a",
+  "display": "standalone",
+  "orientation": "any",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
